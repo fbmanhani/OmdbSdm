@@ -38,7 +38,9 @@ class FilmeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         textViewNome.text = filme.title
         textViewTipo.text = filme.type
         textViewAno.text = filme.year
-        Picasso.get().load(filme.poster).into(imageViewCapa)
+        if(filme.poster?.isNotBlank()!!) {
+            Picasso.get().load(filme.poster).into(imageViewCapa)
+        }
     }
 }
 

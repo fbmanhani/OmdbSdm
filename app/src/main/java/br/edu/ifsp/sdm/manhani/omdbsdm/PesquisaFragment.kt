@@ -73,15 +73,16 @@ class PesquisaFragment : Fragment() {
 
         callback = object : RetornoCallback {
             override fun onResponse(obj: Retorno) {
-
-                recyclerViewFilmes.apply {
-                    layoutManager = LinearLayoutManager(activity)
-                    adapter = ListaFilmesAdapter(obj.filmes)
+                if(obj.filmes.isNotEmpty()) {
+                    recyclerViewFilmes.apply {
+                        layoutManager = LinearLayoutManager(activity)
+                        adapter = ListaFilmesAdapter(obj.filmes)
+                    }
+                }else{
+                    activity?.mainContent?.snackbar("Nenhum resultado encontrado. ")
                 }
-
             }
         }
-
     }
 
     // Novo objeto Retrofit usando a URL base e o HttpClient com interceptador
