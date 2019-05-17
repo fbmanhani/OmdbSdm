@@ -1,11 +1,15 @@
 package br.edu.ifsp.sdm.manhani.omdbsdm
 
-import br.edu.ifsp.sdm.manhani.omdbsdm.dto.Retorno
+import br.edu.ifsp.sdm.manhani.omdbsdm.dto.RetornoDetalhe
+import br.edu.ifsp.sdm.manhani.omdbsdm.dto.RetornoPesquisa
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface OmdbApi {
-    @GET("/") //summary: Returns the most popular match for a given title
-    fun getFilmes(@Query("s") titulo: String): Call<Retorno>
+    @GET("/")
+    fun getFilmes(@Query("s") titulo: String): Call<RetornoPesquisa>
+
+    @GET("/")
+    fun getFilme(@Query("i") id: String): Call<RetornoDetalhe>
 }

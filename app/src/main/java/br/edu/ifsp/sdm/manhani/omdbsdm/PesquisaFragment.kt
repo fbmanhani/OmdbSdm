@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.edu.ifsp.sdm.manhani.omdbsdm.adapter.ListaFilmesAdapter
-import br.edu.ifsp.sdm.manhani.omdbsdm.dto.Retorno
+import br.edu.ifsp.sdm.manhani.omdbsdm.dto.RetornoPesquisa
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_pesquisa.*
 import kotlinx.android.synthetic.main.fragment_pesquisa.view.*
@@ -47,11 +47,7 @@ class PesquisaFragment : Fragment() {
         return layout
     }
 
-
-    // Cria um objeto Retrofit usando a URL base.
-    //    val retrofit: Retrofit =Retrofit Retrofit.Builder().baseUrl(URL_BASE).build()
-
-    val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
+    private val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
 
     var callback: RetornoCallback? = null
     // Instanciando o cliente HTTP
@@ -70,9 +66,8 @@ class PesquisaFragment : Fragment() {
             chain.proceed(novaReq)
         }
 
-
         callback = object : RetornoCallback {
-            override fun onResponse(obj: Retorno) {
+            override fun onResponse(obj: RetornoPesquisa) {
                 if(obj.filmes.isNotEmpty()) {
                     recyclerViewFilmes.apply {
                         layoutManager = LinearLayoutManager(activity)
@@ -99,13 +94,12 @@ class PesquisaFragment : Fragment() {
         /*Chama a função de requisição definida na Interface passando os parâmetros escolhidos pelo usuário e
         enfileira a requisição que recebe um objeto de uma implementação anônima de Callback<ResponseBody>*/
 
-
         omdbApi.getFilmes(titulo).enqueue(
-            object : Callback<Retorno> {
-                override fun onFailure(call: Call<Retorno>, t: Throwable) {
+            object : Callback<RetornoPesquisa> {
+                override fun onFailure(call: Call<RetornoPesquisa>, t: Throwable) {
                     activity?.mainContent?.snackbar("Erro: " + t.message)
                 }
-                override fun onResponse(call: Call<Retorno>, response: Response<Retorno>) {
+                override fun onResponse(call: Call<RetornoPesquisa>, response: Response<RetornoPesquisa>) {
                     val body = response.body()
                     if (body != null) {
                         callback?.onResponse(body)
@@ -116,7 +110,7 @@ class PesquisaFragment : Fragment() {
     } // Fim da função traduzir
 
     interface RetornoCallback {
-        fun onResponse(obj: Retorno)
+        fun onResponse(obj: RetornoPesquisa)
     }
 
 }

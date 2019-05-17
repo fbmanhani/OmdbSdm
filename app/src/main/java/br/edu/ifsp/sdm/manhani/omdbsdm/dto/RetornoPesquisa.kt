@@ -2,7 +2,7 @@ package br.edu.ifsp.sdm.manhani.omdbsdm.dto
 
 import com.google.gson.annotations.SerializedName
 
-class Retorno {
+class RetornoPesquisa {
 
     @SerializedName("Response")
     val response: String? = null
