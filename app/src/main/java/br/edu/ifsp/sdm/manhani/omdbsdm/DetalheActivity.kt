@@ -3,6 +3,7 @@ package br.edu.ifsp.sdm.manhani.omdbsdm
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
+import android.view.View
 import br.edu.ifsp.sdm.manhani.omdbsdm.dto.RetornoDetalhe
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhe.*
@@ -57,7 +58,7 @@ class DetalheActivity : AppCompatActivity() {
         val width = dm.widthPixels
         val heigth = dm.heightPixels
 
-        window.setLayout(((width * .9).toInt()), ((heigth * .9).toInt()))
+        window.setLayout(((width * .9).toInt()), ((heigth * .8).toInt()))
         this.supportActionBar?.hide()
         id = intent.getStringExtra("id")
 
@@ -91,5 +92,8 @@ class DetalheActivity : AppCompatActivity() {
         )
     }
 
+    fun fechar(view: View){
+        finish()
+    }
 
 }
